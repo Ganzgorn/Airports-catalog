@@ -4,9 +4,9 @@ from django.db.models import Model, ForeignKey, CharField, IntegerField, SlugFie
 
 
 TYPE_CHOICES = (
-    (1, u'Страна'),
-    (2, u'Город'),
-    (3, u'Аэропорт')
+    (1, u'Country'),
+    (2, u'City'),
+    (3, u'Airport')
 )
 
 
