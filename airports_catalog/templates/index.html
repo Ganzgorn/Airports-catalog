@@ -33,24 +33,24 @@
                         </div>
                         <form class="form-search pull-right" style="margin-top:20px">
                             <div class="input-append">
-                                <input type="text" class="span4 search-query" id="focusedInput">
-                                <button type="submit" class="btn">Search</button>
+                                <input type="text" class="span4 search-query" id="total_filter">
+                                <button type="submit" class="btn" id="total_search">Search</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container" style="margin-top: 80px">
+        <div class="container" style="margin-top: 20px">
             <br>
             <ul id="myTab" class="nav nav-tabs">
-                <li class="active"><a href="#home" data-toggle="tab"><strong>Страны</strong></a></li>
-                <li class="locked"><a href="#profile" data-toggle="tab"><strong>Города</strong></a></li>
-                <li class="lock"><a href="#three" data-toggle="tab"><strong>Аэропорты</strong></a></li>
+                <li class="active" id="country_tab_select"><a href="#country-tab" data-toggle="tab"><strong>Countries</strong></a></li>
+                <li class="hide" id="city_tab_select"><a href="#city-tab" data-toggle="tab"><strong>Cities</strong></a></li>
+                <li class="hide" id="airport_tab_select"><a href="#airport-tab" data-toggle="tab"><strong>Airports</strong></a></li>
             </ul>
-                <label class="alert alert-info" id="myLabel"><strong>&gt Выберите страну</strong></label>
+                <label class="alert alert-info" id="myLabel"></label>
             <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade active in" id="home">
+                <div class="tab-pane fade active in" id="country-tab">
                     <div class="row-fluid">
                         <div class="span4">
                             <div id="countries">
@@ -58,30 +58,154 @@
                         </div>
                         <div class="span8">
                             <div class="well ">
-                                <legend>{{ country }}</legend>
-                                <form method="POST" action="" accept-charset="UTF-8">
-                                    <button type="submit" name="submit" class="btn btn-right btn-success">Выбрать</button>
+                                <form class="form-horizontal" accept-charset="UTF-8">
+                                    <div class="control-group">
+                                        <label class="control-label" for="country_iso_code"><strong>Code ISO</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="country_iso_code">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="country_eng_name"><strong>English name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="country_eng_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="country_rus_name"><strong>Russian name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="country_rus_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="country_type_location"><strong>Type location</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="country_type_location">
+                                        </div>
+                                    </div>
+                                    <button type="button" id="country_btn" class="btn btn-right btn-success" disabled="true">select</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="profile">
+                <div class="tab-pane fade" id="city-tab">
                     <div class="row-fluid">
                         <div class="span4">
                             <div id="cities">
                             </div>
                         </div>
-                        <div class="span8"></div>
+                        <div class="span8">
+                            <div class="well ">
+                                <form class="form-horizontal" accept-charset="UTF-8">
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_eng_name"><strong>English name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_eng_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_rus_name"><strong>Russian name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_rus_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_latitude"><strong>Latitude</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_latitude">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_longitude"><strong>Longitude</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_longitude">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_gmt_offset"><strong>Time zone</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_gmt_offset">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="city_type_location"><strong>Type location</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="city_type_location">
+                                        </div>
+                                    </div>
+                                    <button type="button" id="city_btn" class="btn btn-right btn-success" disabled="true">Select</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="three">
+                <div class="tab-pane fade" id="airport-tab">
                     <div class="row-fluid">
                         <div class="span4">
                             <div id="airports">
                             </div>
                         </div>
-                        <div class="span8"></div>
+                        <div class="span8">
+                            <div class="well ">
+                                <form class="form-horizontal" accept-charset="UTF-8">
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_iata_code"><strong>IATA code</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_iata_code">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_icao_code"><strong>ICAO code</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_icao_code">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_eng_name"><strong>English name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_eng_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_rus_name"><strong>Russian name</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_rus_name">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_latitude"><strong>Latitude</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_latitude">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_longitude"><strong>Longitude</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_longitude">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_elevation"><strong>Elevation</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_elevation">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_runway_length"><strong>Runway length</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_runway_length">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="airport_type_location"><strong>Type location</strong></label>
+                                        <div class="controls">
+                                            <input class="input-xlarge uneditable-input" readonly="true" id="airport_type_location">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

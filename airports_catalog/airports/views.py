@@ -2,31 +2,36 @@
 import json
 from django.http import HttpResponse
 from django.template import loader, Context
-from airports_catalog.airports.models import Country, City, Airport
+from airports_catalog.airports.api import get_countries, MODELS_DICT, get_filters
 
 
-def return_airports(request, *args, **kwargs):
+def return_airports(request):
     template = loader.get_template('index.html')
     context = Context()
     return HttpResponse(template.render(context), 'text/html')
 
 
-def return_countries_json(request):
-    countries = Country.objects.all().order_by('eng_name')
-    countries_dict = [{'iso': obj.iso_code, 'eng_name': obj.eng_name} for obj in countries]
+def return_data_json(request):
+    if 'model' in request.GET:
+        model = request.GET['model']
+    else:
+        return HttpResponse(json.JSONEncoder().encode([]), content_type="application/json")
+    filters = get_filters(request, model)
 
-    return HttpResponse(json.JSONEncoder().encode(countries_dict), content_type="application/json")
-
-
-def return_cities_json(request):
-    cities = City.objects.all().order_by('eng_name')[:1000]
-    cities_dict = [{'id': obj.id, 'eng_name': obj.eng_name} for obj in cities]
-
-    return HttpResponse(json.JSONEncoder().encode(cities_dict), content_type="application/json")
+    objects = get_countries(model, filters)
+    result_dict = [{'id': obj[0], 'eng_name': obj[1]} for obj in objects]
+    return HttpResponse(json.JSONEncoder().encode(result_dict), content_type="application/json")
 
 
-def return_airports_json(request):
-    airports = Airport.objects.all().order_by('eng_name')
-    airports_dict = [{'iata': obj.iata_code, 'eng_name': obj.eng_name} for obj in airports]
+def get_data_row(request):
+    args = request.GET
 
-    return HttpResponse(json.JSONEncoder().encode(airports_dict), content_type="application/json")
+    if 'model' in args:
+        model = MODELS_DICT.get(request.GET['model'], [])
+        obj = model.objects.get(pk=args['id'])
+
+    result_dict = vars(obj)
+    result_dict.pop('_state')
+    result_dict['type_location'] = obj.get_type_location_display()
+    return HttpResponse(json.JSONEncoder().encode(result_dict), content_type="application/json")
+

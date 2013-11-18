@@ -28,14 +28,14 @@ def load_data():
             latit = float(fields[10]) if fields[10] else None
             longit = float(fields[11]) if fields[11] else None
             try:
-                city = City.objects.get(eng_name=fields[5], latitude=latit, longitude=longit)
+                city = City.objects.get(eng_name=fields[5], gmt_offset=fields[6])
             except City.DoesNotExist:
                 city = City()
                 city.eng_name = fields[5]
                 city.rus_name = fields[4].decode('cp1251')
                 city.gmt_offset = fields[6]
-                city.latitude = latit
-                city.longitude = longit
+                city.latitude = str(latit).split('.')[0]
+                city.longitude = str(longit).split('.')[0]
                 city.country = country
                 try:
                     city.save()

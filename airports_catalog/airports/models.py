@@ -48,7 +48,12 @@ class City(Location):
 
     def save(self, *args, **kwargs):
         self.type_location = 2
-        self.slug = '-'.join([str(self.type_location), str(self.latitude), self.eng_name.replace(' ', '-')])
+        self.slug = '-'.join([
+            str(self.type_location),
+            str(self.latitude),
+            str(self.longitude),
+            self.eng_name.replace(' ', '-')
+        ])
         super(City, self).save(*args, **kwargs)
 
 
