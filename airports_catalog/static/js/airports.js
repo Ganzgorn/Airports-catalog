@@ -26,13 +26,18 @@ $(document).ready(function () {
 
     var data_grid = {"model":"Country"};
     create_data_grid(data_grid, "countries", "country", "Country")
+
     $("#total_search").click(search)
     $("#country_btn").click(select_country)
     $("#city_btn").click(select_city)
-
+    $("#total_filter").keyup(function(event) {
+        if(event.keyCode==13) {search();}
+    });
+    
     bind_row_select("countries", "Country", "country_");
     bind_row_select("cities", "City", "city_");
     bind_row_select("airports", "Airport", "airport_");
+
     $("#airports").bind("rowselect", function (event){
         actual_airport = event.args.row.eng_name;
         window.setTimeout(function (){
@@ -135,8 +140,7 @@ function search(args){
         $("#countries").jqxGrid('unselectrow')
         $("#cities").jqxGrid('unselectrow')
         $("#airports").jqxGrid('unselectrow')
-    }
-    else{
+    } else {
         $("#city_tab_select").attr("class", "hide");
         $("#airport_tab_select").attr("class", "hide");
         $('#myTab a[href="#country-tab"]').tab("show");
