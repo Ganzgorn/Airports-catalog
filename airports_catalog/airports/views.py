@@ -1,14 +1,17 @@
 # coding: utf-8
 import json
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from django.template import loader, Context
 from airports_catalog.airports.api import get_countries, MODELS_DICT, get_filters
 
 
+def return_select_mode(request):
+    return render_to_response('index.html')
+
+
 def return_airports(request):
-    template = loader.get_template('index.html')
-    context = Context()
-    return HttpResponse(template.render(context), 'text/html')
+    return render_to_response('dynamic_catalog.html')
 
 
 def return_data_json(request):
@@ -35,3 +38,6 @@ def get_data_row(request):
     result_dict['type_location'] = obj.get_type_location_display()
     return HttpResponse(json.JSONEncoder().encode(result_dict), content_type="application/json")
 
+
+def get_list_of_country(request):
+    return render_to_response('countries_list.html')

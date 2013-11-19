@@ -33,7 +33,7 @@ $(document).ready(function () {
     $("#total_filter").keyup(function(event) {
         if(event.keyCode==13) {search();}
     });
-    
+
     bind_row_select("countries", "Country", "country_");
     bind_row_select("cities", "City", "city_");
     bind_row_select("airports", "Airport", "airport_");
