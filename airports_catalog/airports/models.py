@@ -24,6 +24,10 @@ class Location(Model):
     class Meta:
         abstract = True
 
+    def display(self):
+        self.type_location = self.get_type_location_display()
+        return self
+
 
 class Airport(Location):
     """
@@ -38,6 +42,9 @@ class Airport(Location):
         self.type_location = 3
         self.slug = '-'.join([str(self.type_location), self.iata_code, self.eng_name.replace(' ', '-')])
         super(Airport, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return '/airport/{0}/'.format(self.slug)
 
 
 class City(Location):
@@ -56,6 +63,9 @@ class City(Location):
         ])
         super(City, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return '/city/{0}/'.format(self.slug)
+
 
 class Country(Location):
     """
@@ -66,6 +76,10 @@ class Country(Location):
         self.type_location = 1
         self.slug = '-'.join([str(self.type_location), self.iso_code, self.eng_name.replace(' ', '-')])
         super(Country, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return '/country/{0}/'.format(self.slug)
+
 
 class Change(admin.ModelAdmin):
     list_display = ('rus_name', 'eng_name', 'slug', 'type_location')

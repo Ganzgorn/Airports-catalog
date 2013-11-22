@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block incontainer %}
+    <form action="../countries" class="well">
+        <legend>
+            <h3>{{ country.type_location }} - {{ country.eng_name }}</h3>
+            <button type="submit">
+                <small>Change</small>
+            </button>
+        </legend>
+        <h4 class="muted">
+            <strong>ISO code:</strong> {{ country.iso_code }}
+            {% if country.rus_name %}<strong>Russian name:</strong> {{ country.rus_name }}{% endif %}
+        </h4>
+    </form>
+    <form action="../country/{{ country.pk }}" class="well">
+        <legend><h3>{{ city.type_location }} - {{ city.eng_name }}</h3><button type="submit" class="btn btn-mini">Change</button></legend>
+        <h4 class="muted">
+            {% if city.rus_name %}<strong>Russian name:</strong> {{ city.rus_name }}{% endif %}
+            {% if city.gmt_offset %}<strong>Time zone:</strong> {{ city.gmt_offset }}{% endif %}
+            {% if city.latitude %}<strong>Latitude:</strong> {{ city.latitude }}{% endif %}
+            {% if city.longitude %}<strong>Longitude:</strong> {{ city.longitude }}{% endif %}
+        </h4>
+    </form>
+    <form action="../city/{{ city.pk }}" class="well">
+        <legend><h3>{{ airport.type_location }} - {{ airport.eng_name }}</h3><button type="submit" class="btn btn-mini">Change</button></legend>
+        <h4 class="muted">
+            <strong>IATA code:</strong> {{ airport.iata_code }}
+            {% if airport.icao_code %}<strong>Icao_code:</strong> {{ airport.icao_code }}{% endif %}
+            {% if airport.rus_name %}<strong>Russian name:</strong> {{ airport.rus_name }}{% endif %}
+            {% if airport.latitude %}<strong>Latitude:</strong> {{ airport.latitude }}{% endif %}
+            {% if airport.longitude %}<strong>Longitude:</strong> {{ airport.longitude }}{% endif %}
+            {% if airport.elevation %}<strong>Elevation:</strong> {{ airport.elevation }}{% endif %}
+            {% if airport.runway_length %}<strong>Runway length:</strong> {{ airport.runway_length }}{% endif %}
+        </h4>
+    </form>
+
+{% endblock %}

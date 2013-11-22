@@ -9,7 +9,7 @@ MODELS_DICT = {
 }
 
 
-def get_countries(model, filters=None):
+def get_data_from_model(model, filters=None):
     model = MODELS_DICT.get(model)
     assert model
     if filters[1]:
@@ -37,3 +37,16 @@ def get_filters(request, model):
             q_filters |= Q(iata_code=filter_str)
             q_filters |= Q(icao_code=filter_str)
     return filters, q_filters
+
+
+def get_pages_list(page, page_count, path):
+    active = lambda x: 'active' if x == page else ''
+    pages = range(page_count+1)
+    if page < 3:
+        pages = pages[1:6]
+    elif page_count-page < 3:
+        pages = pages[-5:]
+    else:
+        pages = pages[page-2:page+3]
+    result = [{'status': active(pag), 'number': pag, 'link': path.format(pag)} for pag in pages]
+    return result

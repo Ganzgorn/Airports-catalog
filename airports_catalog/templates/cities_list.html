@@ -1,0 +1,15 @@
+{% extends "airport.html" %}
+
+{% block data_list %}
+        {% for city in cities %}
+            <div class=" form-inline">
+                <label><h5><a href="{{ city.link }}"><strong>{{ city.eng_name }}: </strong></a></h5></label>
+                {% if city.rus_name %}
+                    <label class="muted"> <strong>Rus name:</strong>{{ city.rus_name }}</label>
+                {% endif %}
+                {% if city.gmt_offset %}
+                    <label class="muted"> <strong>Time zone:</strong>{{ city.gmt_offset }}</label>
+                {% endif %}
+            </div>
+        {% endfor %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+
+{% block incontainer %}
+    {% if country %}
+        <div class="well">
+                <h3 class="lineBlock">{{ country.type_location }} - {{ country.eng_name }}</h3>
+                <a class="small muted" href="{{ change_country }}">Change</a>
+            <h4 class="muted">
+                <strong>ISO code:</strong> {{ country.iso_code }};
+                {% if country.rus_name %}<strong>Russian name:</strong> {{ country.rus_name }}{% endif %}
+            </h4>
+        </div>
+    {% endif %}
+    {% if city %}
+        <div class="well">
+                <h3 class="lineBlock">{{ city.type_location }} - {{ city.eng_name }}</h3>
+                <a class="small muted" href="{{ change_city }}">Change</a>
+            <h4 class="muted">
+                {% if city.rus_name %}<strong>Russian name:</strong> {{ city.rus_name }};{% endif %}
+                {% if city.gmt_offset %}<strong>Time zone:</strong> {{ city.gmt_offset }};{% endif %}
+                {% if city.latitude %}<strong>Latitude:</strong> {{ city.latitude }};{% endif %}
+                {% if city.longitude %}<strong>Longitude:</strong> {{ city.longitude }}{% endif %}
+            </h4>
+        </div>
+    {% endif %}
+    {% if airport %}
+        <div class="well">
+                <h3 class="lineBlock">{{ airport.type_location }} - {{ airport.eng_name }}</h3>
+                <a class="small muted" href="{{ change_airport }}">Change</a>
+            <h4 class="muted">
+                <strong>IATA code:</strong> {{ airport.iata_code }};
+                {% if airport.icao_code %}<strong>Icao_code:</strong> {{ airport.icao_code }};{% endif %}
+                {% if airport.rus_name %}<strong>Russian name:</strong> {{ airport.rus_name }};{% endif %}
+                {% if airport.latitude %}<strong>Latitude:</strong> {{ airport.latitude }};{% endif %}
+                {% if airport.longitude %}<strong>Longitude:</strong> {{ airport.longitude }};{% endif %}
+                {% if airport.elevation %}<strong>Elevation:</strong> {{ airport.elevation }};{% endif %}
+                {% if airport.runway_length %}<strong>Runway length:</strong> {{ airport.runway_length }}{% endif %}
+            </h4>
+        </div>
+    {% endif %}
+    <div>
+        {% block data_list %}
+        {% endblock %}
+        {% if paging.count_page > 1 %}
+            <div class="pagination pagination-centered">
+                <ul>
+                    {% if paging.count_page > 5 %}
+                        <li {% if paging.act_page = 1 %} class="disabled" {% endif %}>
+                            <a href="{{ paging.first_page }}"><< First <span class="muted">1</span></a>
+                        </li>
+                    {% endif %}
+                    <li {% if paging.act_page = 1 %} class="disabled" {% endif %}>
+                        <a href="{{ paging.prev_page }}">< Prev</a>
+                    </li>
+                    {% for page in paging.pages %}
+                        <li class="{{ page.status }}">
+                            <a href="{{ page.link }}">{{ page.number }}</a>
+                        </li>
+                    {% endfor %}
+                    <li {% if paging.act_page >= paging.count_page %} class="disabled" {% endif %}>
+                        <a href="{{ paging.next_page }}">Next ></a>
+                    </li>
+                    {% if paging.count_page > 5 %}
+                        <li {% if paging.act_page >= paging.count_page %} class="disabled" {% endif %}>
+                            <a href="{{ paging.last_page }}">Last <span class="muted">{{ paging.count_page }}</span> >></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
