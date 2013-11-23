@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.core.urlresolvers import resolve, reverse
+
+
 p_f = '/page=(?P<page>\d+)/filter=(?P<filter>[A-Za-z0-9-]*)' # Page + filter
 admin.autodiscover()
 urlpatterns = patterns(

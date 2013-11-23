@@ -1,16 +1,22 @@
 {% extends "airport.html" %}
 
 {% block data_list %}
-        {% for airport in airports %}
-            <div class=" form-inline">
-                <label><h5><a href="{{ airport.link }}"><strong>{{ airport.iata_code }}:</strong> {{ airport.eng_name }} </a></h5></label>
-                {% if airport.icao_code %}
-                    <label class="muted"> <strong>Icao code:</strong>{{ airport.icao_code }}</label>
-                {% endif %}
-                {% if airport.rus_name %}
-                    <label class="muted"> <strong>Rus name:</strong>{{ airport.rus_name }}</label>
-                {% endif %}
+        {% if airports %}
+            {% for airport in airports %}
+                <div class=" form-inline offset3">
+                    <label><h5><a href="{{ airport.link }}"><strong>{{ airport.iata_code }}:</strong> {{ airport.eng_name }} </a></h5></label>
+                    {% if airport.icao_code %}
+                        <label class="muted"> <strong>Icao code:</strong>{{ airport.icao_code }}</label>
+                    {% endif %}
+                    {% if airport.rus_name %}
+                        <label class="muted"> <strong>Rus name:</strong>{{ airport.rus_name }}</label>
+                    {% endif %}
 
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+                <div class=" form-inline offset3">
+                    <label><h5>No data</h5></label>
+                </div>
+        {% endif %}
 {% endblock %}

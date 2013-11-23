@@ -1,12 +1,18 @@
 {% extends "airport.html" %}
 
 {% block data_list %}
-        {% for country in countries %}
-            <div class="form-inline offset2">
-                <label><h5><a href="{{ country.link }}"><strong>{{ country.iso_code }}:</strong> {{ country.eng_name }} </a></h5></label>
-                {% if country.rus_name %}
-                    <label class="muted"> <strong>Rus name:</strong>{{ country.rus_name }}</label>
-                {% endif %}
-            </div>
-        {% endfor %}
+        {% if countries %}
+            {% for country in countries %}
+                <div class="form-inline offset3">
+                    <label><h5><a href="{{ country.link }}"><strong>{{ country.iso_code }}:</strong> {{ country.eng_name }} </a></h5></label>
+                    {% if country.rus_name %}
+                        <label class="muted"> <strong>Rus name:</strong>{{ country.rus_name }}</label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+                <div class=" form-inline offset3">
+                    <label><h5>No data</h5></label>
+                </div>
+        {% endif %}
 {% endblock %}
